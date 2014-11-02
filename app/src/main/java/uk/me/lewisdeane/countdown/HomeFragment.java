@@ -1,7 +1,10 @@
 package uk.me.lewisdeane.countdown;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,26 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadMode(MainActivity.GAME_TYPE _gameType){
-        Fragment GameFragment = new GameFragment().newInstance(_gameType);
+        Log.i("K DEN", _gameType+"");
+
+        GameFragment fragment = new GameFragment();
+        Bundle args = new Bundle();
+        args.putString(MainActivity.PARAM_GAME_MODE, _gameType+"");
+        fragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.activity_main_fragment_container, fragment);
+        fragmentTransaction.commit();
+
+        /*
+        Fragment fragment = new GameFragment().newInstance(_gameType);
+        FragmentManager fragmentManager = getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.activity_main_fragment_container, fragment);
+        fragmentTransaction.commit();
+        */
     }
 }
